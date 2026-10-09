@@ -1,0 +1,26 @@
+# Patient data - never commit
+data/
+*.npz
+*.parquet
+# results/*.csv may also carry identifiers - no whitelist
+*.xlsx
+
+# Model weights - released separately
+models/
+*.pth
+*.pt
+*.ckpt
+
+# Misc
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+wandb/
+
+# Files containing identifiers (moved under data/)
+*sepsis3_repro*
+.*.swp
+data/cache/
+
+# machine-specific raw-source locations
+src/local_paths.py

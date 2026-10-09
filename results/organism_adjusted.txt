@@ -1,0 +1,18 @@
+
+========================================================================================
+cohort log-OR at pooled median, MIMIC blood-culture-positive vs all KNU (test split, patient cluster-robust)
+========================================================================================
+  KNU anchors 22,417  MIMIC blood+ anchors 1,889  MIMIC label dist {'Commensal only': 773, 'Enterococcus': 329, 'S. aureus': 301, 'Enteric GNR': 189, 'Polymicrobial': 187, 'Other': 45, 'Candida/fungus': 42, 'Pseudomonas': 23}
+  unadjusted                 h1 0.63 (0.41–0.84)  h2 0.56 (0.38–0.74)  h3 0.55 (0.35–0.75)
+  organism-group adjusted    h1 0.70 (0.48–0.91)  h2 0.68 (0.50–0.86)  h3 0.69 (0.50–0.89)
+
+========================================================================================
+organism-group strata (MIMIC anchors >= 30): log-OR and c50 gap
+========================================================================================
+  Candida/fungus   KNU    593 / MIMIC   42 anchors  logOR 1.52 (0.66–2.37)  1.59 (0.92–2.25)  1.70 (0.98–2.43)  gap 0.34/0.46/0.73
+  Commensal only   KNU  6,108 / MIMIC  773 anchors  logOR 0.64 (0.30–0.98)  0.55 (0.25–0.84)  0.59 (0.24–0.94)  gap 0.32/0.42/0.47
+  Enteric GNR      KNU  7,635 / MIMIC  189 anchors  logOR 0.66 (0.13–1.20)  0.69 (0.22–1.16)  0.76 (0.18–1.34)  gap 0.28/0.31/0.39
+  Enterococcus     KNU  1,480 / MIMIC  329 anchors  logOR 0.90 (0.44–1.37)  0.81 (0.37–1.26)  0.77 (0.30–1.24)  gap 0.10/0.17/0.24
+  Other            KNU  1,689 / MIMIC   45 anchors  logOR 0.86 (-0.87–2.58)  1.07 (0.08–2.05)  1.18 (0.09–2.26)  gap 0.70/0.61/0.77
+  Polymicrobial    KNU  1,595 / MIMIC  187 anchors  logOR 0.92 (0.22–1.63)  0.90 (0.37–1.44)  0.92 (0.40–1.44)  gap 0.09/0.29/0.21
+  S. aureus        KNU  1,711 / MIMIC  301 anchors  logOR -0.08 (-1.39–1.22)  0.49 (-0.15–1.13)  0.47 (-0.11–1.05)  gap 0.21/0.30/0.42
