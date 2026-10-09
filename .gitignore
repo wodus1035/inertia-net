@@ -5,9 +5,11 @@ data/
 # results/*.csv may also carry identifiers - no whitelist
 *.xlsx
 
-# Model weights - released separately
-models/
-*.pth
+# Model weights: only the 15 cross-validation checkpoints are tracked
+models/*
+!models/cv_f?_s4?/
+models/cv_f?_s4?/*
+!models/cv_f?_s4?/inertia_net_model.pth
 *.pt
 *.ckpt
 

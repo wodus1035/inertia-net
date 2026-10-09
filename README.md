@@ -72,24 +72,22 @@ not forced to encode it. Every reported comparison is then made on `s(z)` itself
 | `src/` | Model (`model.py`), training (`train_inertia_net.py`), data loading and configuration |
 | `data_build/` | Cohort construction and tensor building for both cohorts |
 | `scripts/` | Analysis and evaluation scripts; `common.py` holds shared paths, checkpoint loading, 15-model scoring and statistics |
-| `figures/` | Figure-generating scripts (`paper_figures.py` builds most main-text figures from a cached score table) |
 | `results/` | Numerical results behind the manuscript tables (aggregate values only, no patient-level data) |
+| `models/` | The 15 cross-validation checkpoints reported in the manuscript (`cv_f{0..4}_s{42,43,44}/`) |
 
 ## Reproducing the results
 
-All scripts assume the 15 checkpoints in `models/cv_f{fold}_s{seed}/` and the built
-tensors. Scores on the held-out test split are cached once in
+The 15 checkpoints are in `models/cv_f{fold}_s{seed}/`. The scripts also need the
+built tensors, which are not distributed. Scores on the held-out test split are cached once in
 `results/scores15_test.npz` by `scripts/common.py`.
 
 ```bash
 python scripts/cv_eval.py                        # score the 15 models on the test split
 python scripts/cv_report.py                      # discrimination, gap and calibration
-python figures/paper_figures.py cache 1 2 4 5    # main figures from the cached scores
-python figures/fig_gap.py                        # switching-threshold gap
 ```
 
-The other scripts in `scripts/` and `figures/` are named after what they produce, and
-each one writes or prints the values behind one manuscript table or figure. Some of
+The other scripts in `scripts/` are named after what they produce, and each one
+writes or prints the values behind one manuscript table. Some of
 them read a per-episode table of admission, switch and discharge dates
 (`episode_table_{knu,mimic}.parquet`) that is derived from the source records and,
 like the tensors, is not distributed.
@@ -122,7 +120,11 @@ a single run.
 | MIMIC-IV v3.1 | Beth Israel Deaconess Medical Center | PhysioNet, credentialed users |
 | KNU | Kyungpook National University Hospital and Chilgok Hospital | Institutional approval required |
 
-Model weights are not distributed with the code.
+The 15 cross-validation checkpoints behind every number in the manuscript are
+included in `models/`. Each file holds the encoder and score-head weights, the six
+cutpoints, the Platt parameters and the per-cohort standardization statistics, and
+carries no patient-level data. The 24-hour and 48-hour sensitivity models are not
+included.
 
 ### Cohort definition
 
@@ -174,7 +176,7 @@ python scripts/cv_eval.py
 python scripts/cv_report.py
 
 # Place an additional institution on the shared axis without retraining
-python scripts/place_institution.py --ckpt models/cv_f0_s42/model.pth --data <tensors.npz>
+python scripts/place_institution.py --ckpt models/cv_f0_s42/inertia_net_model.pth --data <tensors.npz>
 ```
 
 Hyperparameters were selected by a 24-configuration search over `d_model`, depth,
